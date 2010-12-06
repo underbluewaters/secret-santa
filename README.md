@@ -57,7 +57,7 @@ Here is the example configuration unchanged:
 
       Nothing could possibly go wrong...
 
-      https://github.com/underbluewaters/secret-santa
+      http://github.com/underbluewaters/secret-santa
 
 Once configured, call secret-santa:
 
