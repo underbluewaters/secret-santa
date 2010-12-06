@@ -12,10 +12,54 @@ Copy config.yml.template to config.yml and enter in the connection details
 for your outgoing mail server. Modify the participants and couples lists and 
 the email message if you wish.
 
-Once configured, call secret-santa:
-
     cd secret-santa/
     cp config.yml.template config.yml
+
+Here is the example configuration unchanged:
+
+    # Required to connect to your outgoing mail server. Example for using gmail:
+    # gmail
+    SMTP_SERVER: smtp.gmail.com
+    SMTP_PORT: 587
+    USERNAME: you@gmail.com
+    PASSWORD: "you're-password"
+
+    TIMEZONE: 'US/Pacific'
+
+    PARTICIPANTS:
+      - Chad <chad@somewhere.net>
+      - Jen <jen@gmail.net>
+      - Bill <Bill@somedomain.net>
+      - Sharon <Sharon@hi.org>
+
+
+    # Couples will never be paired with each other
+    COUPLES:
+      - Chad, Jen
+      - Bill, Sharon
+
+    # From address should be the organizer in case participants have any questions
+    FROM: You <you@gmail.net>
+
+    # Both SUBJECT and MESSAGE can include variable substitution for the 
+    # "santa" and "santee"
+    SUBJECT: Your secret santa recipient is {santee}
+    MESSAGE: 
+      Dear {santa},
+
+      This year you are {santee}'s Secret Santa!. Ho Ho Ho!
+
+      The maximum spending limit is 50.00
+
+
+      This message was automagically generated from a computer. 
+
+      Nothing could possibly go wrong...
+
+      https://github.com/underbluewaters/secret-santa
+
+Once configured, call secret-santa:
+
     python secret_santa.py
 
 Calling secret-santa without arguments will output a test pairing of 
@@ -33,6 +77,6 @@ participants.
 
             $ python secret_santa.py --send
 
-To send the emails, call using the (`--send`) argument
+To send the emails, call using the `--send` argument
 
     python secret_santa.py --send
