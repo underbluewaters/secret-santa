@@ -121,9 +121,6 @@ def main(argv=None):
         if len(participants) < 2:
             raise Exception('Not enough participants specified.')
         
-        if len(participants) % 2:
-            raise Exception('Uneven number of participants!')
-        
         givers = []
         for person in participants:
             name, email = re.match(r'([^<]*)<([^>]*)>', person).groups()
