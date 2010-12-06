@@ -18,7 +18,7 @@ the email message if you wish.
 
 Here is the example configuration unchanged:
 
-```yaml
+    ::yaml
     # Required to connect to your outgoing mail server. Example for using gmail:
     # gmail
     SMTP_SERVER: smtp.gmail.com
@@ -59,7 +59,6 @@ Here is the example configuration unchanged:
       Nothing could possibly go wrong...
 
       https://github.com/underbluewaters/secret-santa
-```
 
 Once configured, call secret-santa:
 
