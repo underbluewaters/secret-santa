@@ -18,7 +18,6 @@ the email message if you wish.
 
 Here is the example configuration unchanged:
 
-    ::yaml
     # Required to connect to your outgoing mail server. Example for using gmail:
     # gmail
     SMTP_SERVER: smtp.gmail.com
