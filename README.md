@@ -6,6 +6,12 @@ randomly assigning pairings and sending emails. It can avoid pairing
 couples to their significant other, and allows custom email messages to be 
 specified.
 
+Dependencies
+------------
+
+pytz
+pyyaml
+
 Usage
 -----
 
