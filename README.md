@@ -39,10 +39,10 @@ Here is the example configuration unchanged:
       - Bill <Bill@somedomain.net>
       - Sharon <Sharon@hi.org>
 
-
-    # Couples will never be paired with each other
-    COUPLES:
-      - Chad, Jen
+    # Warning -- if you mess this up you could get an infinite loop
+    DONT-PAIR:
+      - Chad, Jen    # Chad and Jen are married
+      - Chad, Bill   # Chad and Bill are best friends
       - Bill, Sharon
 
     # From address should be the organizer in case participants have any questions

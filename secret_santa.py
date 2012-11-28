@@ -13,7 +13,7 @@ import os
 
 help_message = '''
 To use, fill out config.yml with your own participants. You can also specify 
-couples so that people don't get assigned their significant other.
+DONT-PAIR so that people don't get assigned their significant other.
 
 You'll also need to specify your mail server settings. An example is provided
 for routing mail through gmail.
@@ -28,7 +28,7 @@ REQRD = (
     'PASSWORD', 
     'TIMEZONE', 
     'PARTICIPANTS', 
-    'COUPLES', 
+    'DONT-PAIR', 
     'FROM', 
     'SUBJECT', 
     'MESSAGE',
@@ -46,10 +46,10 @@ Subject: {subject}
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), 'config.yml')
 
 class Person:
-    def __init__(self, name, email, partner):
+    def __init__(self, name, email, invalid_matches):
         self.name = name
         self.email = email
-        self.partner = partner
+        self.invalid_matches = invalid_matches
     
     def __str__(self):
         return "%s <%s>" % (self.name, self.email)
@@ -67,7 +67,7 @@ def parse_yaml(yaml_path=CONFIG_PATH):
 
 def choose_reciever(giver, recievers):
     choice = random.choice(recievers)
-    if giver.partner == choice.name or giver.name == choice.name:
+    if choice.name in giver.invalid_matches or giver.name == choice.name:
         if len(recievers) is 1:
             raise Exception('Only one reciever left, try again')
         return choose_reciever(giver, recievers)
@@ -117,7 +117,7 @@ def main(argv=None):
                     'Required parameter %s not in yaml config file!' % (key,))
 
         participants = config['PARTICIPANTS']
-        couples = config['COUPLES']
+        dont_pair = config['DONT-PAIR']
         if len(participants) < 2:
             raise Exception('Not enough participants specified.')
         
@@ -125,15 +125,15 @@ def main(argv=None):
         for person in participants:
             name, email = re.match(r'([^<]*)<([^>]*)>', person).groups()
             name = name.strip()
-            partner = None
-            for couple in couples:
-                names = [n.strip() for n in couple.split(',')]
+            invalid_matches = []
+            for pair in dont_pair:
+                names = [n.strip() for n in pair.split(',')]
                 if name in names:
-                    # is part of this couple
+                    # is part of this pair
                     for member in names:
                         if name != member:
-                            partner = member
-            person = Person(name, email, partner)
+                            invalid_matches.append(member)
+            person = Person(name, email, invalid_matches)
             givers.append(person)
         
         recievers = givers[:]
